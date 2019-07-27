@@ -1,3 +1,10 @@
+"""
+exercice pratique de création d'un programme d'affichage et de calcul de la graviation
+entre plusieurs astres 
+
+source et ennonce du probleme :
+https://python.developpez.com/cours/TutoSwinnen/?page=Chapitre8#L8.7
+"""
 import tkinter as tk
 from math import *
 
