@@ -1,0 +1,24 @@
+---- initialisation ----
+git init                                # initialise un nouveau dossier git
+git add README.md                       # créer un fichier readme dans le dossier
+git add .                               # index l'ensemble des fichiers dans le track change
+git commit -m "commentaire_de_commit"   # créer un check-point associé à un commentaire
+git push -u origin master               # créer un raccourcis à la branche "master" et sync les changements
+
+---- update le repertoire git ----
+git add .                               # index l'ensemble des fichiers dans le track change
+git commit -m "commentaire_de_commit"   # créer un check-point associé à un commentaire
+git push                                # synchronise les changements
+
+
+---- branch ----
+git branch                              # liste l'ensemble des branches du projet
+git branch <branchName>                 # création d'une nouvelle branche
+git checkout <branchName>               # bascule vers l'edition de la nouvelle branche
+
+git checkout -b <branchName>            # création et bascule vers une nouvelle branche
+
+---- merge ----
+git merge <branchToMerge>               # dans la branche "source", additionne les changements de la branche
+git pull                                # verifie que tous les documents sont présent
+
