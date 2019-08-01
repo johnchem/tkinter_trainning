@@ -7,6 +7,7 @@ de la graviation entre plusieurs astres
 source et ennonce du probleme :
 https://python.developpez.com/cours/TutoSwinnen/?page=Chapitre8#L8.7
 """
+
 import tkinter as tk
 from math import *
 import logging
@@ -33,6 +34,7 @@ def labelTest():
 
 class planet:
     listePlanet = {}
+    
     def __init__(self, canvas, x, y, r, coul, NomPlanet):
         self.canvas = canvas
         self.coords = (x, y, r)
@@ -120,11 +122,34 @@ class planet:
         puis calcul de la masse (kg) avec la densite """
         volume = (4/3)*pi*r**3
         return DENSITE*1000*volume
+     
+    def select(self):
+        self.canvas.itemconfig(self.planet, outline = "black", width=2)
+        
+    def deselect(self):
+        color = self.canvas.itemcget(self.planet, "fill")
+        self.canvas.itemconfig(self.planet, outline = color, width=1)
 
 
 def cercle(x, y, r, coul="black"):
 	""" function graphique pour l'affichage simplifié d'un cercle"""
 	can.create_oval(x-r, y-r, x+r, y+r, fill=coul)
+
+def pointeur(event):
+    global selected_planet
+    Xp, Yp = event.x, event.y
+
+    for nomPlanet, ObjPlanet in planet.listePlanet.items():
+        X1, Y1, R1 = ObjPlanet.coords
+        distance = sqrt((Xp-X1)**2+(Yp-Y1)**2)
+        
+        if distance <= R1:
+            selected_planet = ObjPlanet
+            ObjPlanet.select()
+            return
+        else:
+            ObjPlanet.deselect()
+    
 
 # --- fonction de calcul ---
 
@@ -195,6 +220,9 @@ def label_update():
 x1, y1 = 50, 100
 x2, y2 = 150, 100
 
+#global variable
+selected_planet = None
+
 # affichage
 root = tk.Tk()
 root.title("gravitation")
@@ -222,6 +250,8 @@ labForce2.grid(row=3, column=4, columnspan=2)
 
 frame=tk.Frame(root)
 frame.grid(row=4, columnspan=6)
+
+can.bind("<Button-1>", pointeur)
 
 planet1=planet(can, x1, y1, 5, "red", NomPlanet="planet1")
 planet2=planet(can, x2, y2, 10, "green", NomPlanet="planet2")
