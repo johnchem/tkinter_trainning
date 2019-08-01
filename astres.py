@@ -10,6 +10,7 @@ https://python.developpez.com/cours/TutoSwinnen/?page=Chapitre8#L8.7
 
 import tkinter as tk
 from math import *
+from random import randrange
 import logging
 
 logging.basicConfig(filename='planet.log', filemode='w', \
@@ -24,6 +25,9 @@ UNITE_ASTRO = 149597870700
 G = 6.67*10**-11 #N.m2.kg-2
 DENSITE = 1
 UNITE_DISTANCE = 1 #distance unitaire en 
+SCREENWIDTH = 500
+SCREENHEIGHT = 650
+
 
 def labelTest():
     labMass1.configure(text="masse 1")
@@ -42,37 +46,31 @@ class planet:
         self.masse = self._masse(r)
         self.nom = NomPlanet
         self.listePlanet[NomPlanet] = self
-        
-    def move(self, direction, vitesse=10):
-        """ detection de la direction du mouvement"""
-        if direction == "haut":
-            self.choisir_direc(hb=-vitesse, gd=0)
-        elif direction == "bas":
-            self.choisir_direc(hb=+vitesse, gd=0)
-        elif direction == "droite":
-            self.choisir_direc(hb=0, gd=+vitesse)
-        elif direction == "gauche":
-            self.choisir_direc(hb=0, gd=-vitesse)
-        else:
-            self.choisir_direc(0, 0)
-        label_update()
 
-    def choisir_direc(self, hb, gd):
+    def deplacement(self, hb, gd):
         """ gestion du mouvement de l'objets dans le canvas et 
-        gestion des colisions avec les bordures """
-        tmpCoords = self.canvas.coords(self.planet)
+        gestion des colisions avec les bordures 
+        tmpCoords = coordonnées de la boite concentant l'objet
+        maxWidth, maxHeight : taille du canevas
+        distance : distance entre les centres de 2 objets
         """
+        tmpCoords = self.canvas.coords(self.planet)
+        maxWidth = self.canvas.winfo_width()
+        maxHeight = self.canvas.winfo_height()
+        
+        #log pour debugging
         logging.info("intial coord ({}, {}) r= {}".format(tmpCoords[0], \
         tmpCoords[1], \
         tmpCoords[2]))
-        
         logging.info("deplacement horiz = {} verti = {}".format(gd, hb))
-        """
+        
+        #variable booléenne
         colisions = False
         OutOfBorder = False
+        
         #gestion des out of border
-        if tmpCoords[0]+gd<0 or tmpCoords[2]+gd>200 or \
-            tmpCoords[1]+hb<0 or tmpCoords[3]+hb>200:
+        if tmpCoords[0]+gd<0 or tmpCoords[2]+gd>maxWidth or \
+            tmpCoords[1]+hb<0 or tmpCoords[3]+hb>maxHeight:
             OutOfBorder = True
 
         #gestion des colisions avec les autres planets
@@ -83,8 +81,10 @@ class planet:
             if nomPlanet == self.nom:
                 continue
             else:
+                #calcule de la distance entre les centres APRES mvt
                 distance = sqrt(((x1+gd)-x2)**2 + ((y1+hb)-y2)**2)
                 
+                #log debugage
                 logging.debug("{} ({}, {}) r= {} => ({}, {})".format( \
                     self.nom, x1, y1, r1, (x1+gd), (y1+hb)))
                 logging.debug("{} ({}, {}) r= {}".format( \
@@ -93,8 +93,6 @@ class planet:
                 logging.debug("distance= {:.2f} somme rayon = {}".format( \
                      distance, r1+r2))
                 
-                #print("distance de {:.2f} m avec la planet {}".format(
-                #    distance, ObjPlanet.nom))
                 if distance <= (r1+r2):
                     colisions = True
 
@@ -105,6 +103,7 @@ class planet:
             print("collision des planets")
             return
         else:
+            #màj des coord et mvt si les tests sont OK
             old_x, old_y, old_r = self.coords
             self.coords = (old_x+gd, old_y+hb, old_r)
             self.canvas.move(self.planet, gd, hb)
@@ -138,6 +137,7 @@ def cercle(x, y, r, coul="black"):
 def pointeur(event):
     global selected_planet
     Xp, Yp = event.x, event.y
+    selected_planet = None
 
     for nomPlanet, ObjPlanet in planet.listePlanet.items():
         X1, Y1, R1 = ObjPlanet.coords
@@ -146,10 +146,26 @@ def pointeur(event):
         if distance <= R1:
             selected_planet = ObjPlanet
             ObjPlanet.select()
-            return
         else:
             ObjPlanet.deselect()
-    
+
+def move(planet, direction, vitesse=10):
+	""" gestion externe du deplacement des objets"""
+	if planet == None:
+		print("pas de planete selectionnée")
+	else:
+		#detection de la direction du mouvement
+		if direction == "Up":
+			planet.deplacement(hb=-vitesse, gd=0)
+		elif direction == "Down":
+			planet.deplacement(hb=+vitesse, gd=0)
+		elif direction == "Right":
+			planet.deplacement(hb=0, gd=+vitesse)
+		elif direction == "Left":
+			planet.deplacement(hb=0, gd=-vitesse)
+		else:
+			planet.deplacement(0, 0)
+	label_update()
 
 # --- fonction de calcul ---
 
@@ -220,63 +236,73 @@ def label_update():
 x1, y1 = 50, 100
 x2, y2 = 150, 100
 
+
+
 #global variable
 selected_planet = None
 
 # affichage
 root = tk.Tk()
+ 
+# Gets both half the screen width/height and window width/height
+positionRight = int(root.winfo_screenwidth()/2 - SCREENWIDTH/2)
+positionDown = int(root.winfo_screenheight()/2 - SCREENHEIGHT/2)
+
 root.title("gravitation")
+root.geometry("{w}x{h}+{posR}+{posD}".format( \
+    w=SCREENWIDTH, h=SCREENHEIGHT, \
+    posR=positionRight, posD=positionDown))
 
 labMass1 = tk.Label(root, bg="ivory")
-labMass1.grid(row=0, column=0, columnspan=2)
+labMass1.grid(row=0, column=0, columnspan=2, sticky="NSEW")
 
 labDistance = tk.Label(root, bg="green")
-labDistance.grid(row=0, column=2, columnspan=2)
+labDistance.grid(row=0, column=2, columnspan=2, sticky="NSEW")
 
 labMass2 = tk.Label(root, bg="red")
-labMass2.grid(row=0, column=4, columnspan=2)
+labMass2.grid(row=0, column=4, columnspan=2, sticky="NSEW")
 
-can = tk.Canvas(root, width=200, height=200, bg="blue4")
-can.grid(row=1, columnspan=6)
+can = tk.Canvas(root, width=500, height=500, bg="blue4")
+can.grid(row=1, columnspan=6, sticky="NSEW")
 
-tk.Label(root, text="astre 1").grid(row=2, column=0, columnspan=2)
-tk.Label(root, text="astre 2").grid(row=2, column=4, columnspan=2)
+tk.Label(root, text="astre 1").grid(row=2, column=0, columnspan=2, sticky="NSEW")
+tk.Label(root, text="astre 2").grid(row=2, column=4, columnspan=2, sticky="NSEW")
 
 labForce1=tk.Label(root, bg="gold")
-labForce1.grid(row=3, column=0, columnspan=2)
+labForce1.grid(row=3, column=0, columnspan=2, sticky="NSEW")
 
 labForce2 = tk.Label(root, bg="brown")
-labForce2.grid(row=3, column=4, columnspan=2)
+labForce2.grid(row=3, column=4, columnspan=2, sticky="NSEW")
 
 frame=tk.Frame(root)
-frame.grid(row=4, columnspan=6)
+frame.grid(row=4, columnspan=6, sticky="NSEW")
 
-can.bind("<Button-1>", pointeur)
-
+x1, y1 = randrange(0, 500), randrange(0, 500)
+x2, y2 = randrange(0, 500), randrange(0, 500)
+ 
 planet1=planet(can, x1, y1, 5, "red", NomPlanet="planet1")
 planet2=planet(can, x2, y2, 10, "green", NomPlanet="planet2")
 
 vitesse = 5
 
-# --- astre 1 ---
-tk.Button(root, text="haut", command= lambda: planet1.move("haut", vitesse))\
-    .grid(row=4, column=0)
-tk.Button(root, text="bas", command=lambda: planet1.move("bas", vitesse))\
-    .grid(row=4, column=1)
-tk.Button(root, text="droite", command=lambda: planet1.move("droite", vitesse))\
-    .grid(row=5, column=1)
-tk.Button(root, text="gauche", command=lambda: planet1.move("gauche", vitesse))\
-    .grid(row=5, column=0)
+# --- boutons controles ---
+#tk.Button(root, text="haut", command= lambda: planet1.move("haut", vitesse))\
+#    .grid(row=4, column=0, sticky="NSEW")
+tk.Button(root, text="haut", command= lambda e: move(selected_planet, "Up", vitesse))\
+    .grid(row=4, column=0, sticky="NSEW")
+tk.Button(root, text="bas", command= lambda e: move(selected_planet, "Down", vitesse))\
+    .grid(row=4, column=1, sticky="NSEW")
+tk.Button(root, text="droite", command=lambda e: move(selected_planet, "Right", vitesse))\
+    .grid(row=5, column=1, sticky="NSEW")
+tk.Button(root, text="gauche", command=lambda e: move(selected_planet, "Left", vitesse))\
+    .grid(row=5, column=0, sticky="NSEW")
 
-# --- astre 2 ---
-tk.Button(root, text="haut", command= lambda: planet2.move("haut", vitesse))\
-    .grid(row=4, column=4)
-tk.Button(root, text="bas", command= lambda: planet2.move("bas", vitesse))\
-    .grid(row=4, column=5)
-tk.Button(root, text="droite", command= lambda: planet2.move("droite", vitesse))\
-    .grid(row=5, column=5)
-tk.Button(root, text="gauche", command= lambda: planet2.move("gauche", vitesse))\
-    .grid(row=5, column=4)
+#evenements claviers
+can.bind("<Button-1>", pointeur)
+root.bind("<Up>", lambda e: move(selected_planet, e.keysym, vitesse))
+root.bind("<Down>", lambda e: move(selected_planet, e.keysym, vitesse))
+root.bind("<Right>", lambda e: move(selected_planet, e.keysym, vitesse))
+root.bind("<Left>", lambda e: move(selected_planet, e.keysym, vitesse))
 
 label_update()
 root.mainloop()
