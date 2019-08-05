@@ -26,7 +26,7 @@ G = 6.67*10**-11 #N.m2.kg-2
 DENSITE = 1
 UNITE_DISTANCE = 1 #distance unitaire en 
 SCREENWIDTH = 500
-SCREENHEIGHT = 650
+SCREENHEIGHT = 700
 
 
 def labelTest():
@@ -128,6 +128,11 @@ class planet:
     def deselect(self):
         color = self.canvas.itemcget(self.planet, "fill")
         self.canvas.itemconfig(self.planet, outline = color, width=1)
+    
+    def size_update(self, value):
+        x, y, r = self.coords
+        self.coords = x, y, value
+        self.canvas.coords(self.planet, (x-value, y-value, x+value, y+value))
 
 
 def cercle(x, y, r, coul="black"):
@@ -146,6 +151,7 @@ def pointeur(event):
         if distance <= R1:
             selected_planet = ObjPlanet
             ObjPlanet.select()
+            densityScale.set(ObjPlanet.coords[2])
         else:
             ObjPlanet.deselect()
 
@@ -184,6 +190,15 @@ def force_gravitation(obj1, obj2):
 	""" calcul de la force de gravitation de l'obj2 sur l'obj1"""
 	return G*(obj1.masse*obj2.masse)/get_distance(obj1,obj2)**2
 
+# --- fonction de modification d'object ---
+
+def increase_size(planet, value):
+    if not planet == None:
+        planet.size_update(value)
+        label_update()
+    else:
+        print("selectionner une planete")
+
 # --- fonction d'affichage des labels ---
 
 def display_distance(obj1, obj2):
@@ -209,11 +224,11 @@ def display_force(obj1, obj2):
     if force//1>1:
         while force//10**i > 1:
             i+=1
-        return "{:.2f}x1e{}".format(force/10**(i-1), (i-1))
+        return "{:.2f}x1e{} N".format(force/10**(i-1), (i-1))
     else:
         while force*10**i < 1:
             i+=1
-        return "{:.2f}x1e-{}".format(force*10**(i), i)
+        return "{:.2f}x1e-{} N".format(force*10**(i), i)
 
 def display_masse(masse):
     i=0
@@ -223,20 +238,34 @@ def display_masse(masse):
 
 
 def label_update():
-    labMass1.configure(text=display_masse(planet1.masse))
-    labMass2.configure(text=display_masse(planet2.masse))
-    labDistance.configure(text=display_distance(planet1, planet2))
-    labForce1.configure(text=display_force(planet1, planet2))
-    labForce2.configure(text=display_force(planet2, planet1))
-
+    liste_planets = list(planet.listePlanet.keys())
+    
+    FirstPlanet = planet.listePlanet[liste_planets[0]]
+    SecondPlanet = planet.listePlanet[liste_planets[1]]
+    
+    force_1_2 = display_force(FirstPlanet, SecondPlanet)
+    force_2_1 = display_force(SecondPlanet, FirstPlanet)
+    
+    labName1.configure(text=FirstPlanet.nom)
+    labForce1.configure(text=force_1_2)
+    labMass1.configure(text=display_masse(FirstPlanet.masse))
+    labDensity1.configure(text=DENSITE)
+    labRadius1.configure(text=FirstPlanet.coords[2])
+    
+    labName2.configure(text=SecondPlanet.nom)
+    labForce2.configure(text=force_2_1)
+    labMass2.configure(text=display_masse(SecondPlanet.masse))
+    labDensity2.configure(text=DENSITE)
+    labRadius2.configure(text=SecondPlanet.coords[2])
+    
+    labDistance.configure(text=display_distance(FirstPlanet, SecondPlanet))
+    
 
 ### programme principal ###
 
 # position initial
-x1, y1 = 50, 100
-x2, y2 = 150, 100
-
-
+#x1, y1 = 50, 100
+#x2, y2 = 150, 100
 
 #global variable
 selected_planet = None
@@ -248,54 +277,126 @@ root = tk.Tk()
 positionRight = int(root.winfo_screenwidth()/2 - SCREENWIDTH/2)
 positionDown = int(root.winfo_screenheight()/2 - SCREENHEIGHT/2)
 
+#fenetre principale
 root.title("gravitation")
+root.geometry("+{posR}+{posD}".format( \
+    posR=positionRight, posD=positionDown))
+
+"""
 root.geometry("{w}x{h}+{posR}+{posD}".format( \
     w=SCREENWIDTH, h=SCREENHEIGHT, \
     posR=positionRight, posD=positionDown))
+"""
 
-labMass1 = tk.Label(root, bg="ivory")
-labMass1.grid(row=0, column=0, columnspan=2, sticky="NSEW")
-
-labDistance = tk.Label(root, bg="green")
-labDistance.grid(row=0, column=2, columnspan=2, sticky="NSEW")
-
-labMass2 = tk.Label(root, bg="red")
-labMass2.grid(row=0, column=4, columnspan=2, sticky="NSEW")
-
+#canevas pour l'affichage des planetes
 can = tk.Canvas(root, width=500, height=500, bg="blue4")
-can.grid(row=1, columnspan=6, sticky="NSEW")
+can.grid(row=0, column=0, sticky="NSEW")
 
-tk.Label(root, text="astre 1").grid(row=2, column=0, columnspan=2, sticky="NSEW")
-tk.Label(root, text="astre 2").grid(row=2, column=4, columnspan=2, sticky="NSEW")
+#affichage des infos numérique
+frame=tk.Frame(root, bg="black")
+frame.grid(row=1, column= 0, columnspan=1, sticky="NSEW")
 
-labForce1=tk.Label(root, bg="gold")
-labForce1.grid(row=3, column=0, columnspan=2, sticky="NSEW")
+#affichage des controles
+control_box=tk.Frame(root, bg="ivory")
+control_box.grid(row=0, column=1, sticky="NEW")
 
-labForce2 = tk.Label(root, bg="brown")
-labForce2.grid(row=3, column=4, columnspan=2, sticky="NSEW")
+#reglage grid frame
+frame.grid_columnconfigure(0, weight=1)
+frame.grid_columnconfigure(1, weight=2)
+frame.grid_columnconfigure(2, weight=2)
 
-frame=tk.Frame(root)
-frame.grid(row=4, columnspan=6, sticky="NSEW")
+#planete 1 label init
+labName1 = tk.Label(frame, bg="ivory")
+labForce1= tk.Label(frame, bg="ivory")
+labMass1 = tk.Label(frame, bg="ivory")
+labDensity1 = tk.Label(frame, bg="ivory")
+labRadius1 = tk.Label(frame, bg="ivory")
 
-x1, y1 = randrange(0, 500), randrange(0, 500)
-x2, y2 = randrange(0, 500), randrange(0, 500)
- 
-planet1=planet(can, x1, y1, 5, "red", NomPlanet="planet1")
-planet2=planet(can, x2, y2, 10, "green", NomPlanet="planet2")
+#planete 2 labels init
+labName2 = tk.Label(frame, bg="ivory")
+labForce2 = tk.Label(frame, bg="ivory")
+labMass2 = tk.Label(frame, bg="ivory")
+labDensity2 = tk.Label(frame, bg="ivory")
+labRadius2 = tk.Label(frame, bg="ivory")
+
+#etiquettes
+tk.Label(frame, bg="grey").grid(row=0, column=0, sticky="NSEW")
+tk.Label(frame, bg="ivory", text="force").grid(row=1, column=0, sticky="NSEW", padx=1, pady=1)
+tk.Label(frame, bg="ivory", text="masse").grid(row=2, column=0, sticky="NSEW", padx=1, pady=1)
+tk.Label(frame, bg="ivory", text="densité").grid(row=3, column=0, sticky="NSEW", padx=1, pady=1)
+tk.Label(frame, bg="ivory", text="rayon").grid(row=4, column=0, sticky="NSEW", padx=1, pady=1)
+tk.Label(frame, bg="ivory", text="distance").grid(row=5, column=0, sticky="NSEW", padx=1, pady=1)
+
+#planet 1 label layout
+labName1.grid(row=0, column=1, sticky="NSEW", padx=1, pady=1)
+labForce1.grid(row=1, column=1, sticky="NSEW", padx=1, pady=1)
+labMass1.grid(row=2, column=1, sticky="NSEW", padx=1, pady=1)
+labDensity1.grid(row=3, column=1, sticky="NSEW", padx=1, pady=1)
+labRadius1.grid(row=4, column=1, sticky="NSEW", padx=1, pady=1)
+
+#planet 2 labels layout
+labName2.grid(row=0, column=2, sticky="NSEW", padx=1, pady=1)
+labForce2.grid(row=1, column=2, sticky="NSEW", padx=1, pady=1)
+labMass2.grid(row=2, column=2, sticky="NSEW", padx=1, pady=1)
+labDensity2.grid(row=3, column=2, sticky="NSEW", padx=1, pady=1)
+labRadius2.grid(row=4, column=2, sticky="NSEW", padx=1, pady=1)
+
+#distance
+labDistance = tk.Label(frame, bg="ivory")
+labDistance.grid(row=5, column=1, columnspan=2, sticky="NSEW", padx=1, pady=1)
+
+#------initialisation des planetes-----
+#coord initiales
+maxWidth = 500 #can.winfo_width()
+maxHeight = 500 #can.winfo_height()
+print(maxWidth)
+print(maxHeight)
+
+r1 = 5 
+x1, y1 = randrange(r1, maxWidth-r1), randrange(r1, maxHeight-r1)
+
+r2 = 10
+x2, y2 = randrange(r2, maxWidth-r2), randrange(r2, maxHeight-r2)
+
+#planet init
+planet1=planet(can, x1, y1, r1, "red", NomPlanet="planet1")
+planet2=planet(can, x2, y2, r2, "green", NomPlanet="planet2")
+
+# --- boutons controles ---
 
 vitesse = 5
 
-# --- boutons controles ---
-#tk.Button(root, text="haut", command= lambda: planet1.move("haut", vitesse))\
-#    .grid(row=4, column=0, sticky="NSEW")
-tk.Button(root, text="haut", command= lambda e: move(selected_planet, "Up", vitesse))\
-    .grid(row=4, column=0, sticky="NSEW")
-tk.Button(root, text="bas", command= lambda e: move(selected_planet, "Down", vitesse))\
-    .grid(row=4, column=1, sticky="NSEW")
-tk.Button(root, text="droite", command=lambda e: move(selected_planet, "Right", vitesse))\
-    .grid(row=5, column=1, sticky="NSEW")
-tk.Button(root, text="gauche", command=lambda e: move(selected_planet, "Left", vitesse))\
-    .grid(row=5, column=0, sticky="NSEW")
+#button creation
+UpButton = tk.Button(control_box, text="haut", \
+    command= lambda: move(selected_planet, "Up", vitesse))
+DownButton = tk.Button(control_box, text="bas", \
+    command= lambda: move(selected_planet, "Down", vitesse))
+RightButton = tk.Button(control_box, text="droite", \
+    command= lambda: move(selected_planet, "Right", vitesse))
+LeftButton = tk.Button(control_box, text="gauche", \
+    command= lambda: move(selected_planet, "Left", vitesse))
+
+#scrollbar creation
+densityScale = tk.Scale(control_box, orient="vertical", \
+    command= lambda e: increase_size(selected_planet, int(e)))
+labDensityScale = tk.Label(control_box, text="Densité")
+sizeScale = tk.Scale(control_box, orient="vertical", \
+    command= lambda e: increase_size(selected_planet, int(e)))
+labSizeScale = tk.Label(control_box, text="Densité")
+
+#Buttons layouts
+UpButton.grid(row=1, column=2, columnspan=2, rowspan=2, sticky="NSEW")
+DownButton.grid(row=3, column=2, columnspan=2, rowspan=2, sticky="NSEW")
+RightButton.grid(row=2, column=4, columnspan=2, rowspan=2, sticky="NSEW")
+LeftButton.grid(row=2, column=0, columnspan=2, rowspan=2, sticky="NSEW")
+
+#scroll bar layout
+control_box.rowconfigure(6, minsize=30)
+control_box.rowconfigure(8, minsize=300)
+labDensityScale.grid(row=7, column=1, columnspan=2, sticky="NSEW")
+densityScale.grid(row=8, column=1, columnspan = 2, sticky = "NS")
+labSizeScale.grid(row=7, column=3, columnspan=2, sticky="NSEW")
+sizeScale.grid(row=8, column=3, columnspan = 2, sticky = "NS")
 
 #evenements claviers
 can.bind("<Button-1>", pointeur)
@@ -305,4 +406,5 @@ root.bind("<Right>", lambda e: move(selected_planet, e.keysym, vitesse))
 root.bind("<Left>", lambda e: move(selected_planet, e.keysym, vitesse))
 
 label_update()
+
 root.mainloop()
