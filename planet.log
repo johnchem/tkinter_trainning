@@ -1,121 +1,283 @@
 root - DEBUG - --------------- Start new session ------------------
-root - INFO - intial coord (408.0, 399.0) r= 428.0
-root - INFO - deplacement horiz = -5 verti = 0
-root - DEBUG - planet2 (418, 409) r= 10 => (413, 409)
-root - DEBUG - planet1 (482, 354) r= 5
-root - DEBUG - deplacement x= -5, y= 0
-root - DEBUG - distance= 88.24 somme rayon = 15
-root - INFO - intial coord (403.0, 399.0) r= 423.0
-root - INFO - deplacement horiz = -5 verti = 0
-root - DEBUG - planet2 (413, 409) r= 10 => (408, 409)
-root - DEBUG - planet1 (482, 354) r= 5
-root - DEBUG - deplacement x= -5, y= 0
-root - DEBUG - distance= 92.20 somme rayon = 15
-root - INFO - intial coord (398.0, 399.0) r= 418.0
-root - INFO - deplacement horiz = -5 verti = 0
-root - DEBUG - planet2 (408, 409) r= 10 => (403, 409)
-root - DEBUG - planet1 (482, 354) r= 5
-root - DEBUG - deplacement x= -5, y= 0
-root - DEBUG - distance= 96.26 somme rayon = 15
-root - INFO - intial coord (393.0, 399.0) r= 413.0
-root - INFO - deplacement horiz = -5 verti = 0
-root - DEBUG - planet2 (403, 409) r= 10 => (398, 409)
-root - DEBUG - planet1 (482, 354) r= 5
-root - DEBUG - deplacement x= -5, y= 0
-root - DEBUG - distance= 100.40 somme rayon = 15
-root - INFO - intial coord (388.0, 399.0) r= 408.0
-root - INFO - deplacement horiz = -5 verti = 0
-root - DEBUG - planet2 (398, 409) r= 10 => (393, 409)
-root - DEBUG - planet1 (482, 354) r= 5
-root - DEBUG - deplacement x= -5, y= 0
-root - DEBUG - distance= 104.62 somme rayon = 15
-root - INFO - intial coord (383.0, 399.0) r= 403.0
-root - INFO - deplacement horiz = -5 verti = 0
-root - DEBUG - planet2 (393, 409) r= 10 => (388, 409)
-root - DEBUG - planet1 (482, 354) r= 5
-root - DEBUG - deplacement x= -5, y= 0
-root - DEBUG - distance= 108.91 somme rayon = 15
-root - INFO - intial coord (378.0, 399.0) r= 398.0
-root - INFO - deplacement horiz = -5 verti = 0
-root - DEBUG - planet2 (388, 409) r= 10 => (383, 409)
-root - DEBUG - planet1 (482, 354) r= 5
-root - DEBUG - deplacement x= -5, y= 0
-root - DEBUG - distance= 113.25 somme rayon = 15
-root - INFO - intial coord (373.0, 399.0) r= 393.0
-root - INFO - deplacement horiz = 0 verti = -5
-root - DEBUG - planet2 (383, 409) r= 10 => (383, 404)
-root - DEBUG - planet1 (482, 354) r= 5
-root - DEBUG - deplacement x= 0, y= -5
-root - DEBUG - distance= 110.91 somme rayon = 15
-root - INFO - intial coord (373.0, 394.0) r= 393.0
-root - INFO - deplacement horiz = 0 verti = -5
-root - DEBUG - planet2 (383, 404) r= 10 => (383, 399)
-root - DEBUG - planet1 (482, 354) r= 5
-root - DEBUG - deplacement x= 0, y= -5
-root - DEBUG - distance= 108.75 somme rayon = 15
-root - INFO - intial coord (373.0, 389.0) r= 393.0
-root - INFO - deplacement horiz = 0 verti = -5
-root - DEBUG - planet2 (383, 399) r= 10 => (383, 394)
-root - DEBUG - planet1 (482, 354) r= 5
-root - DEBUG - deplacement x= 0, y= -5
-root - DEBUG - distance= 106.78 somme rayon = 15
-root - INFO - intial coord (373.0, 384.0) r= 393.0
-root - INFO - deplacement horiz = 0 verti = -5
-root - DEBUG - planet2 (383, 394) r= 10 => (383, 389)
-root - DEBUG - planet1 (482, 354) r= 5
-root - DEBUG - deplacement x= 0, y= -5
-root - DEBUG - distance= 105.00 somme rayon = 15
-root - INFO - intial coord (373.0, 379.0) r= 393.0
-root - INFO - deplacement horiz = 0 verti = -5
-root - DEBUG - planet2 (383, 389) r= 10 => (383, 384)
-root - DEBUG - planet1 (482, 354) r= 5
-root - DEBUG - deplacement x= 0, y= -5
-root - DEBUG - distance= 103.45 somme rayon = 15
-root - INFO - intial coord (373.0, 374.0) r= 393.0
-root - INFO - deplacement horiz = 0 verti = -5
-root - DEBUG - planet2 (383, 384) r= 10 => (383, 379)
-root - DEBUG - planet1 (482, 354) r= 5
-root - DEBUG - deplacement x= 0, y= -5
-root - DEBUG - distance= 102.11 somme rayon = 15
-root - INFO - intial coord (373.0, 369.0) r= 393.0
-root - INFO - deplacement horiz = 0 verti = -5
-root - DEBUG - planet2 (383, 379) r= 10 => (383, 374)
-root - DEBUG - planet1 (482, 354) r= 5
-root - DEBUG - deplacement x= 0, y= -5
-root - DEBUG - distance= 101.00 somme rayon = 15
-root - INFO - intial coord (373.0, 364.0) r= 393.0
-root - INFO - deplacement horiz = 0 verti = -5
-root - DEBUG - planet2 (383, 374) r= 10 => (383, 369)
-root - DEBUG - planet1 (482, 354) r= 5
-root - DEBUG - deplacement x= 0, y= -5
-root - DEBUG - distance= 100.13 somme rayon = 15
-root - INFO - intial coord (373.0, 359.0) r= 393.0
-root - INFO - deplacement horiz = 0 verti = -5
-root - DEBUG - planet2 (383, 369) r= 10 => (383, 364)
-root - DEBUG - planet1 (482, 354) r= 5
-root - DEBUG - deplacement x= 0, y= -5
-root - DEBUG - distance= 99.50 somme rayon = 15
-root - INFO - intial coord (373.0, 354.0) r= 393.0
-root - INFO - deplacement horiz = 0 verti = -5
-root - DEBUG - planet2 (383, 364) r= 10 => (383, 359)
-root - DEBUG - planet1 (482, 354) r= 5
-root - DEBUG - deplacement x= 0, y= -5
-root - DEBUG - distance= 99.13 somme rayon = 15
-root - INFO - intial coord (373.0, 349.0) r= 393.0
+root - INFO - intial coord (152.0, 242.0) r= 266.0
 root - INFO - deplacement horiz = 5 verti = 0
-root - DEBUG - planet2 (383, 359) r= 10 => (388, 359)
-root - DEBUG - planet1 (482, 354) r= 5
+root - DEBUG - planet2 (209, 299) r= 57 => (214, 299)
+root - DEBUG - planet1 (418, 302) r= 61
 root - DEBUG - deplacement x= 5, y= 0
-root - DEBUG - distance= 94.13 somme rayon = 15
-root - INFO - intial coord (378.0, 349.0) r= 398.0
+root - DEBUG - distance= 204.02 somme rayon = 118
+root - INFO - intial coord (157.0, 242.0) r= 271.0
 root - INFO - deplacement horiz = 5 verti = 0
-root - DEBUG - planet2 (388, 359) r= 10 => (393, 359)
-root - DEBUG - planet1 (482, 354) r= 5
+root - DEBUG - planet2 (214, 299) r= 57 => (219, 299)
+root - DEBUG - planet1 (418, 302) r= 61
 root - DEBUG - deplacement x= 5, y= 0
-root - DEBUG - distance= 89.14 somme rayon = 15
-root - INFO - intial coord (482.0, 354.0) r= 482.0
-root - INFO - deplacement horiz = 0 verti = -5
-root - DEBUG - planet1 (482, 354) r= 0 => (482, 349)
-root - DEBUG - planet2 (393, 359) r= 31
-root - DEBUG - deplacement x= 0, y= -5
-root - DEBUG - distance= 89.56 somme rayon = 31
+root - DEBUG - distance= 199.02 somme rayon = 118
+root - INFO - intial coord (162.0, 242.0) r= 276.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (219, 299) r= 57 => (224, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 194.02 somme rayon = 118
+root - INFO - intial coord (167.0, 242.0) r= 281.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (224, 299) r= 57 => (229, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 189.02 somme rayon = 118
+root - INFO - intial coord (172.0, 242.0) r= 286.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (229, 299) r= 57 => (234, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 184.02 somme rayon = 118
+root - INFO - intial coord (177.0, 242.0) r= 291.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (234, 299) r= 57 => (239, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 179.03 somme rayon = 118
+root - INFO - intial coord (182.0, 242.0) r= 296.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (239, 299) r= 57 => (244, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 174.03 somme rayon = 118
+root - INFO - intial coord (187.0, 242.0) r= 301.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (244, 299) r= 57 => (249, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 169.03 somme rayon = 118
+root - INFO - intial coord (192.0, 242.0) r= 306.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (249, 299) r= 57 => (254, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 164.03 somme rayon = 118
+root - INFO - intial coord (197.0, 242.0) r= 311.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (254, 299) r= 57 => (259, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 159.03 somme rayon = 118
+root - INFO - intial coord (202.0, 242.0) r= 316.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (259, 299) r= 57 => (264, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 154.03 somme rayon = 118
+root - INFO - intial coord (207.0, 242.0) r= 321.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (264, 299) r= 57 => (269, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 149.03 somme rayon = 118
+root - INFO - intial coord (212.0, 242.0) r= 326.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (269, 299) r= 57 => (274, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 144.03 somme rayon = 118
+root - INFO - intial coord (217.0, 242.0) r= 331.0
+root - INFO - deplacement horiz = -5 verti = 0
+root - DEBUG - planet2 (274, 299) r= 57 => (269, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= -5, y= 0
+root - DEBUG - distance= 149.03 somme rayon = 118
+root - INFO - intial coord (212.0, 242.0) r= 326.0
+root - INFO - deplacement horiz = -5 verti = 0
+root - DEBUG - planet2 (269, 299) r= 57 => (264, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= -5, y= 0
+root - DEBUG - distance= 154.03 somme rayon = 118
+root - INFO - intial coord (207.0, 242.0) r= 321.0
+root - INFO - deplacement horiz = -5 verti = 0
+root - DEBUG - planet2 (264, 299) r= 57 => (259, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= -5, y= 0
+root - DEBUG - distance= 159.03 somme rayon = 118
+root - INFO - intial coord (202.0, 242.0) r= 316.0
+root - INFO - deplacement horiz = -5 verti = 0
+root - DEBUG - planet2 (259, 299) r= 57 => (254, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= -5, y= 0
+root - DEBUG - distance= 164.03 somme rayon = 118
+root - INFO - intial coord (197.0, 242.0) r= 311.0
+root - INFO - deplacement horiz = -5 verti = 0
+root - DEBUG - planet2 (254, 299) r= 57 => (249, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= -5, y= 0
+root - DEBUG - distance= 169.03 somme rayon = 118
+root - INFO - intial coord (192.0, 242.0) r= 306.0
+root - INFO - deplacement horiz = -5 verti = 0
+root - DEBUG - planet2 (249, 299) r= 57 => (244, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= -5, y= 0
+root - DEBUG - distance= 174.03 somme rayon = 118
+root - INFO - intial coord (187.0, 242.0) r= 301.0
+root - INFO - deplacement horiz = -5 verti = 0
+root - DEBUG - planet2 (244, 299) r= 57 => (239, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= -5, y= 0
+root - DEBUG - distance= 179.03 somme rayon = 118
+root - INFO - intial coord (182.0, 242.0) r= 296.0
+root - INFO - deplacement horiz = -5 verti = 0
+root - DEBUG - planet2 (239, 299) r= 57 => (234, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= -5, y= 0
+root - DEBUG - distance= 184.02 somme rayon = 118
+root - INFO - intial coord (177.0, 242.0) r= 291.0
+root - INFO - deplacement horiz = -5 verti = 0
+root - DEBUG - planet2 (234, 299) r= 57 => (229, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= -5, y= 0
+root - DEBUG - distance= 189.02 somme rayon = 118
+root - INFO - intial coord (172.0, 242.0) r= 286.0
+root - INFO - deplacement horiz = -5 verti = 0
+root - DEBUG - planet2 (229, 299) r= 57 => (224, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= -5, y= 0
+root - DEBUG - distance= 194.02 somme rayon = 118
+root - INFO - intial coord (167.0, 242.0) r= 281.0
+root - INFO - deplacement horiz = -5 verti = 0
+root - DEBUG - planet2 (224, 299) r= 57 => (219, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= -5, y= 0
+root - DEBUG - distance= 199.02 somme rayon = 118
+root - INFO - intial coord (162.0, 242.0) r= 276.0
+root - INFO - deplacement horiz = -5 verti = 0
+root - DEBUG - planet2 (219, 299) r= 57 => (214, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= -5, y= 0
+root - DEBUG - distance= 204.02 somme rayon = 118
+root - INFO - intial coord (157.0, 242.0) r= 271.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (214, 299) r= 57 => (219, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 199.02 somme rayon = 118
+root - INFO - intial coord (162.0, 242.0) r= 276.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (219, 299) r= 57 => (224, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 194.02 somme rayon = 118
+root - INFO - intial coord (167.0, 242.0) r= 281.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (224, 299) r= 57 => (229, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 189.02 somme rayon = 118
+root - INFO - intial coord (172.0, 242.0) r= 286.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (229, 299) r= 57 => (234, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 184.02 somme rayon = 118
+root - INFO - intial coord (177.0, 242.0) r= 291.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (234, 299) r= 57 => (239, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 179.03 somme rayon = 118
+root - INFO - intial coord (182.0, 242.0) r= 296.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (239, 299) r= 57 => (244, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 174.03 somme rayon = 118
+root - INFO - intial coord (187.0, 242.0) r= 301.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (244, 299) r= 57 => (249, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 169.03 somme rayon = 118
+root - INFO - intial coord (192.0, 242.0) r= 306.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (249, 299) r= 57 => (254, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 164.03 somme rayon = 118
+root - INFO - intial coord (197.0, 242.0) r= 311.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (254, 299) r= 57 => (259, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 159.03 somme rayon = 118
+root - INFO - intial coord (202.0, 242.0) r= 316.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (259, 299) r= 57 => (264, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 154.03 somme rayon = 118
+root - INFO - intial coord (207.0, 242.0) r= 321.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (264, 299) r= 57 => (269, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 149.03 somme rayon = 118
+root - INFO - intial coord (212.0, 242.0) r= 326.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (269, 299) r= 57 => (274, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 144.03 somme rayon = 118
+root - INFO - intial coord (217.0, 242.0) r= 331.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (274, 299) r= 57 => (279, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 139.03 somme rayon = 118
+root - INFO - intial coord (222.0, 242.0) r= 336.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (279, 299) r= 57 => (284, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 134.03 somme rayon = 118
+root - INFO - intial coord (227.0, 242.0) r= 341.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (284, 299) r= 57 => (289, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 129.03 somme rayon = 118
+root - INFO - intial coord (232.0, 242.0) r= 346.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (289, 299) r= 57 => (294, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 124.04 somme rayon = 118
+root - INFO - intial coord (237.0, 242.0) r= 351.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (294, 299) r= 57 => (299, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 119.04 somme rayon = 118
+root - INFO - intial coord (242.0, 242.0) r= 356.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (299, 299) r= 57 => (304, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 114.04 somme rayon = 118
+root - INFO - intial coord (242.0, 242.0) r= 356.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (299, 299) r= 57 => (304, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 114.04 somme rayon = 118
+root - INFO - intial coord (242.0, 242.0) r= 356.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (299, 299) r= 57 => (304, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 114.04 somme rayon = 118
+root - INFO - intial coord (242.0, 242.0) r= 356.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (299, 299) r= 57 => (304, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 114.04 somme rayon = 118
+root - INFO - intial coord (242.0, 242.0) r= 356.0
+root - INFO - deplacement horiz = 5 verti = 0
+root - DEBUG - planet2 (299, 299) r= 57 => (304, 299)
+root - DEBUG - planet1 (418, 302) r= 61
+root - DEBUG - deplacement x= 5, y= 0
+root - DEBUG - distance= 114.04 somme rayon = 118
