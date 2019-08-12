@@ -6,6 +6,15 @@ de la graviation entre plusieurs astres
 
 source et ennonce du probleme :
 https://python.developpez.com/cours/TutoSwinnen/?page=Chapitre8#L8.7
+
+- Les planetes sont represente par des ronds de couleur
+- elles sont selectionnable par un clic et on peut modifier leurs positions 
+avec les fleches directionnel ou les boutons en haut a gauche de l'interface
+- la taille (rayon) des planetes est modifiable via le slider
+- la densite est aussi modifiable avec un slider
+
+- lors de la modification des propritees d'une planete, les calculs sont remis a jours
+- on calcul la masse de chaque planetes et la distance entre elles pour le calcul de la force de gravite
 """
 
 import tkinter as tk
@@ -29,13 +38,27 @@ SCREENWIDTH = 500
 SCREENHEIGHT = 700
 
 
-def labelTest():
-    labMass1.configure(text="masse 1")
-    labMass2.configure(text="masse 2")
-    labForce1.configure(text="Force 2-1")
-    labForce2.configure(text="Force 1-2")
-
 class planet:
+    """
+    objet planet:
+    .canvas : nom de la variable de canvas pour la gestion de l'affichage dans tkinter
+    .coords[3] : coords (x, y, r) caracterisant le cercle
+    .densite : valeur de densite
+    .nom : nom utilisateur de la planete
+    .masse : masse calcule a partir du rayon et de la densite
+    .planet : objet oval representant la planet dans le User Interface (UI)
+    .listePlanet[] : bibliotheque stockant les objets planet avec leur nom usuel (gestion collision)
+
+    ._collision() : retour True si collision detecte avec bordure ou objet planet
+    ._masse() : calcul de la masse de self
+    ._update() : mise a jour des parametres calcules (masse)
+    .centre_masse() : calcule la position du centre du cercle d'apres la position de l'objet tk.oval
+    .change_gravite() : gestion de la modification de la variable .gravite
+    .deplacement() : gestion du mouvement dans l'affichage
+    .deselect() : desactive l'effet visuel de selection
+    .select() : active l'effet visuel de selection
+    .size_update() : gestion de la modification de taille de l'objet
+    """
     listePlanet = {}
     
     def __init__(self, canvas, x, y, r, coul, NomPlanet):
@@ -194,10 +217,11 @@ class planet:
 
 
 def cercle(x, y, r, coul="black"):
-	""" function graphique pour l'affichage simplifié d'un cercle"""
+	""" fonction graphique pour l'affichage simplifié d'un cercle"""
 	can.create_oval(x-r, y-r, x+r, y+r, fill=coul)
 
 def pointeur(event):
+    """ gere la selection ou deselection des planetes lors de l'event clic droit"""
     global selected_planet
     Xp, Yp = event.x, event.y
     selected_planet = None
@@ -245,7 +269,7 @@ def move(planet, direction, vitesse=10):
 
 def get_distance(obj1, obj2):
 	""" calcul la distance entre 2 objets 'planet' 
-	par la norme du vecteur entre leurs centre de masse
+	par la norme du vecteur entre leurs centres de masses
 	"""
 	global UNITE_DISTANCE
 	coord1 = obj1.centre_masse()
@@ -261,7 +285,8 @@ def force_gravitation(obj1, obj2):
 # --- fonction de modification d'object ---
 
 def increase_size(planet, value):
-    
+    """ handler externe pour la modification de la taille des planetes"""
+
     if not planet == None:
         logging.debug("modification de la taille de {}: {}".format(planet.nom, value))
 
@@ -274,7 +299,8 @@ def increase_size(planet, value):
         print("selectionner une planete")
 
 def increase_density(planet, value):
-    
+    """ handler externe pour la modification de la densite des planetes"""
+
     if not planet == None:
         logging.debug("modification de la densite de {}: {}".format(planet.nom, value))
 
@@ -303,6 +329,7 @@ def display_distance(obj1, obj2):
 
 
 def display_force(obj1, obj2):
+    """ mise en forme de l'affichage de la force """
     force = force_gravitation(obj1, obj2)
     i=0
     if force//1>1:
@@ -315,6 +342,7 @@ def display_force(obj1, obj2):
         return "{:.2f}x1e-{} N".format(force*10**(i), i)
 
 def display_masse(masse):
+    """ mise en forme de l'affichage de la masse """
     i=0
     while masse//10**i > 1:
         i+=1
@@ -322,6 +350,8 @@ def display_masse(masse):
 
 
 def label_update():
+    """ mise a jours des l'ensembles des valeurs de l'UI """
+
     liste_planets = list(planet.listePlanet.keys())
     
     FirstPlanet = planet.listePlanet[liste_planets[0]]
@@ -347,14 +377,10 @@ def label_update():
 
 ### programme principal ###
 
-# position initial
-#x1, y1 = 50, 100
-#x2, y2 = 150, 100
-
 #global variable
 selected_planet = None
 
-# affichage
+# affichage racine tkinter
 root = tk.Tk()
  
 # Gets both half the screen width/height and window width/height
@@ -436,6 +462,7 @@ maxHeight = 500 #can.winfo_height()
 print(maxWidth)
 print(maxHeight)
 
+#parametres des planetes
 r1 = 5 
 x1, y1 = randrange(r1, maxWidth-r1), randrange(r1, maxHeight-r1)
 
@@ -448,6 +475,7 @@ planet2=planet(can, x2, y2, r2, "green", NomPlanet="planet2")
 
 # --- boutons controles ---
 
+#vitesse de deplacement des planetes dans la fenetres
 vitesse = 5
 
 #button creation
@@ -490,6 +518,8 @@ root.bind("<Down>", lambda e: move(selected_planet, e.keysym, vitesse))
 root.bind("<Right>", lambda e: move(selected_planet, e.keysym, vitesse))
 root.bind("<Left>", lambda e: move(selected_planet, e.keysym, vitesse))
 
+#setup initial des etiquettes
 label_update()
 
+#boucle principale pour la gestion des events
 root.mainloop()
