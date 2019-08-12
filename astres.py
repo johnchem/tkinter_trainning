@@ -24,7 +24,7 @@ ANNEE_LUMIERE = 9.5*10**15
 UNITE_ASTRO = 149597870700
 G = 6.67*10**-11 #N.m2.kg-2
 DENSITE = 1
-UNITE_DISTANCE = 1 #distance unitaire en 
+UNITE_DISTANCE = 1 #distance unitaire en m
 SCREENWIDTH = 500
 SCREENHEIGHT = 700
 
@@ -32,7 +32,6 @@ SCREENHEIGHT = 700
 def labelTest():
     labMass1.configure(text="masse 1")
     labMass2.configure(text="masse 2")
-    #labDistance.configure(text="distance")
     labForce1.configure(text="Force 2-1")
     labForce2.configure(text="Force 1-2")
 
@@ -40,12 +39,74 @@ class planet:
     listePlanet = {}
     
     def __init__(self, canvas, x, y, r, coul, NomPlanet):
+        logging.info("planet init {name} : ({x}, {y}, {r}) {coul}". format(
+            name= NomPlanet, 
+            x= x, y= y, r= r,
+            coul= coul))
+
         self.canvas = canvas
         self.coords = (x, y, r)
-        self.planet = canvas.create_oval((x-r, y-r, x+r, y+r), fill=coul)
-        self.masse = self._masse(r)
+        self.densite = 1
         self.nom = NomPlanet
+
+        self.masse = self._masse()
+        
+        self.planet = canvas.create_oval((x-r, y-r, x+r, y+r), fill=coul)
         self.listePlanet[NomPlanet] = self
+        
+
+    def _collision(self, newx, newy, newr):
+        """prends les nouvelles coordonnées de l'objets et renvoie
+        un booleen TRUE si il rentre en contact avec un autre object
+        """
+        maxWidth = self.canvas.winfo_width()
+        maxHeight = self.canvas.winfo_height()
+
+        logging.info("test collision => nouvelle coord {x}, {y}, {r}". format(
+            x= newx, y= newy, r= newr
+        ))
+
+        #variable booléenne
+        collision = False
+        OutOfBorder = False
+
+        #gestion des out of border
+        if (newx-newr)<0 or (newx+newr)>maxWidth or \
+           (newy-newr)<0 or (newy+newr)>maxHeight:
+            OutOfBorder = True
+
+        #gestion des colisions avec les autres planets
+        for nomPlanet, ObjPlanet in planet.listePlanet.items():
+            x2, y2, r2 = ObjPlanet.coords
+            
+            if nomPlanet == self.nom:
+                continue
+            else:
+                #calcule de la distance entre les centres APRES mvt
+                distance = sqrt((newx-x2)**2 + (newy-y2)**2)
+                
+                #log debugage
+                logging.debug("{} ({}, {}) r= {}".format( \
+                    self.nom, newx, newy, newr))
+                logging.debug("{} ({}, {}) r= {}".format( \
+                    nomPlanet, x2, y2, r2))
+                logging.debug("distance= {:.2f} somme rayon = {}".format( \
+                     distance, newr+r2))
+                
+                if distance <= (newr+r2):
+                    collision = True
+
+        logging.debug("collision resultat : Border = {}, planet = {}".format(OutOfBorder, collision))
+
+        if OutOfBorder:
+            print("mouvement interdit")
+            return True
+        elif collision:
+            print("collision des planets")
+            return True
+        else:
+            print("pas de collisions")
+            return False
 
     def deplacement(self, hb, gd):
         """ gestion du mouvement de l'objets dans le canvas et 
@@ -54,58 +115,18 @@ class planet:
         maxWidth, maxHeight : taille du canevas
         distance : distance entre les centres de 2 objets
         """
-        tmpCoords = self.canvas.coords(self.planet)
-        maxWidth = self.canvas.winfo_width()
-        maxHeight = self.canvas.winfo_height()
-        
         #log pour debugging
-        logging.info("intial coord ({}, {}) r= {}".format(tmpCoords[0], \
-        tmpCoords[1], \
-        tmpCoords[2]))
         logging.info("deplacement horiz = {} verti = {}".format(gd, hb))
-        
-        #variable booléenne
-        colisions = False
-        OutOfBorder = False
-        
-        #gestion des out of border
-        if tmpCoords[0]+gd<0 or tmpCoords[2]+gd>maxWidth or \
-            tmpCoords[1]+hb<0 or tmpCoords[3]+hb>maxHeight:
-            OutOfBorder = True
 
-        #gestion des colisions avec les autres planets
-        for nomPlanet, ObjPlanet in planet.listePlanet.items():
-            x1, y1, r1 = self.coords
-            x2, y2, r2 = ObjPlanet.coords
-            
-            if nomPlanet == self.nom:
-                continue
-            else:
-                #calcule de la distance entre les centres APRES mvt
-                distance = sqrt(((x1+gd)-x2)**2 + ((y1+hb)-y2)**2)
-                
-                #log debugage
-                logging.debug("{} ({}, {}) r= {} => ({}, {})".format( \
-                    self.nom, x1, y1, r1, (x1+gd), (y1+hb)))
-                logging.debug("{} ({}, {}) r= {}".format( \
-                    nomPlanet, x2, y2, r2))
-                logging.debug("deplacement x= {}, y= {}".format(gd, hb))
-                logging.debug("distance= {:.2f} somme rayon = {}".format( \
-                     distance, r1+r2))
-                
-                if distance <= (r1+r2):
-                    colisions = True
+        #màj des coord et mvt si les tests sont OK
+        old_x, old_y, r = self.coords
+        new_x = old_x+gd
+        new_y = old_y+hb
 
-        if OutOfBorder:
-            print("mouvement interdit")
-            return
-        elif colisions:
-            print("collision des planets")
+        if self._collision(new_x, new_y, r):
             return
         else:
-            #màj des coord et mvt si les tests sont OK
-            old_x, old_y, old_r = self.coords
-            self.coords = (old_x+gd, old_y+hb, old_r)
+            self.coords = new_x, new_y, r
             self.canvas.move(self.planet, gd, hb)
 
     def centre_masse(self):
@@ -114,25 +135,62 @@ class planet:
         position = self.canvas.coords(self.planet)
         x = (position[0]+position[2])//2
         y = (position[1]+position[3])//2
+
+        logging.info("centre de masse {} = ({}, {})".format(
+            self.nom, x, y
+        ))
+
         return (x, y)
 
-    def _masse(self, r):
+    def _masse(self):
         """ volumne de la sphere (m3) 
         puis calcul de la masse (kg) avec la densite """
+        r = self.coords[2]
         volume = (4/3)*pi*r**3
-        return DENSITE*1000*volume
+        masse = self.densite*1000*volume
+        return masse
+
+    def _update(self):
+        """ update des propritées de l'objet lors de la modification
+        de la taille ou de la densité
+        """
+        logging.debug("update {}".format(self.nom))
+
+        self.masse = self._masse()
      
     def select(self):
+        "active l'aspect selectionner de l'objet"
+        logging.debug("{} select".format(self.nom))
+
         self.canvas.itemconfig(self.planet, outline = "black", width=2)
         
     def deselect(self):
+        "desactive l'aspect selectionne de l'objet"
+        logging.debug("{} deselect".format(self.nom))
+
         color = self.canvas.itemcget(self.planet, "fill")
         self.canvas.itemconfig(self.planet, outline = color, width=1)
     
+    def change_densité(self, value):
+        "modification de la densité et màj de la masse"
+        logging.debug("modification densité {} => {}".format(self.nom, value))
+        self.densite = value
+        self._update()
+        
     def size_update(self, value):
+        """ modification de la taille de l'objet aprés test collision
+        si collision, renvoie False sinon modifie les coords de l'objet
+        """
         x, y, r = self.coords
-        self.coords = x, y, value
-        self.canvas.coords(self.planet, (x-value, y-value, x+value, y+value))
+        if self._collision(x, y, value):
+            logging.debug("{} collision detecté aug taille annulé".format(self.nom))
+            return False
+        else:
+            logging.debug("{} aug. taille autorisé r={}".format(self.nom, value))
+
+            self.coords = x, y, value
+            self._update()
+            self.canvas.coords(self.planet, (x-value, y-value, x+value, y+value))
 
 
 def cercle(x, y, r, coul="black"):
@@ -151,9 +209,19 @@ def pointeur(event):
         if distance <= R1:
             selected_planet = ObjPlanet
             ObjPlanet.select()
-            densityScale.set(ObjPlanet.coords[2])
+
+            logging.debug("modification curseur objet")
+            
+            densityScale.set(ObjPlanet.densite)
+            sizeScale.set(ObjPlanet.coords[2])
         else:
             ObjPlanet.deselect()
+
+    if selected_planet == None:
+        logging.debug("raz des curseur objet")
+        
+        densityScale.set(0)
+        sizeScale.set(0)
 
 def move(planet, direction, vitesse=10):
 	""" gestion externe du deplacement des objets"""
@@ -193,8 +261,24 @@ def force_gravitation(obj1, obj2):
 # --- fonction de modification d'object ---
 
 def increase_size(planet, value):
+    
     if not planet == None:
-        planet.size_update(value)
+        logging.debug("modification de la taille de {}: {}".format(planet.nom, value))
+
+        #si la modification de la taille echoue => reinitialisation de la position du curseur de taille
+        if planet.size_update(value) == False:
+            sizeScale.set(planet.coords[2])
+        else:
+            label_update()
+    else:
+        print("selectionner une planete")
+
+def increase_density(planet, value):
+    
+    if not planet == None:
+        logging.debug("modification de la densite de {}: {}".format(planet.nom, value))
+
+        planet.change_densité(value)
         label_update()
     else:
         print("selectionner une planete")
@@ -249,13 +333,13 @@ def label_update():
     labName1.configure(text=FirstPlanet.nom)
     labForce1.configure(text=force_1_2)
     labMass1.configure(text=display_masse(FirstPlanet.masse))
-    labDensity1.configure(text=DENSITE)
+    labDensity1.configure(text=FirstPlanet.densite)
     labRadius1.configure(text=FirstPlanet.coords[2])
     
     labName2.configure(text=SecondPlanet.nom)
     labForce2.configure(text=force_2_1)
     labMass2.configure(text=display_masse(SecondPlanet.masse))
-    labDensity2.configure(text=DENSITE)
+    labDensity2.configure(text=SecondPlanet.densite)
     labRadius2.configure(text=SecondPlanet.coords[2])
     
     labDistance.configure(text=display_distance(FirstPlanet, SecondPlanet))
@@ -377,12 +461,13 @@ LeftButton = tk.Button(control_box, text="gauche", \
     command= lambda: move(selected_planet, "Left", vitesse))
 
 #scrollbar creation
-densityScale = tk.Scale(control_box, orient="vertical", \
-    command= lambda e: increase_size(selected_planet, int(e)))
+densityScale = tk.Scale(control_box, orient="vertical", from_=1, to=10, resolution = 0.1, \
+    command= lambda e: increase_density(selected_planet, float(e)))
 labDensityScale = tk.Label(control_box, text="Densité")
-sizeScale = tk.Scale(control_box, orient="vertical", \
+
+sizeScale = tk.Scale(control_box, orient="vertical", from_=1, \
     command= lambda e: increase_size(selected_planet, int(e)))
-labSizeScale = tk.Label(control_box, text="Densité")
+labSizeScale = tk.Label(control_box, text="Rayon")
 
 #Buttons layouts
 UpButton.grid(row=1, column=2, columnspan=2, rowspan=2, sticky="NSEW")
