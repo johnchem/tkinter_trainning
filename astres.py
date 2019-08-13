@@ -38,7 +38,7 @@ SCREENWIDTH = 500
 SCREENHEIGHT = 700
 
 
-class planet:
+class Planet:
     """
     objet planet:
     .canvas : nom de la variable de canvas pour la gestion de l'affichage dans tkinter
@@ -99,7 +99,7 @@ class planet:
             OutOfBorder = True
 
         #gestion des colisions avec les autres planets
-        for nomPlanet, ObjPlanet in planet.listePlanet.items():
+        for nomPlanet, ObjPlanet in Planet.listePlanet.items():
             x2, y2, r2 = ObjPlanet.coords
             
             if nomPlanet == self.nom:
@@ -226,7 +226,7 @@ def pointeur(event):
     Xp, Yp = event.x, event.y
     selected_planet = None
 
-    for nomPlanet, ObjPlanet in planet.listePlanet.items():
+    for nomPlanet, ObjPlanet in Planet.listePlanet.items():
         X1, Y1, R1 = ObjPlanet.coords
         distance = sqrt((Xp-X1)**2+(Yp-Y1)**2)
         
@@ -352,10 +352,10 @@ def display_masse(masse):
 def label_update():
     """ mise a jours des l'ensembles des valeurs de l'UI """
 
-    liste_planets = list(planet.listePlanet.keys())
+    liste_planets = list(Planet.listePlanet.keys())
     
-    FirstPlanet = planet.listePlanet[liste_planets[0]]
-    SecondPlanet = planet.listePlanet[liste_planets[1]]
+    FirstPlanet = Planet.listePlanet[liste_planets[0]]
+    SecondPlanet = Planet.listePlanet[liste_planets[1]]
     
     force_1_2 = display_force(FirstPlanet, SecondPlanet)
     force_2_1 = display_force(SecondPlanet, FirstPlanet)
@@ -470,8 +470,8 @@ r2 = 10
 x2, y2 = randrange(r2, maxWidth-r2), randrange(r2, maxHeight-r2)
 
 #planet init
-planet1=planet(can, x1, y1, r1, "red", NomPlanet="planet1")
-planet2=planet(can, x2, y2, r2, "green", NomPlanet="planet2")
+planet1=Planet(can, x1, y1, r1, "red", NomPlanet="planet1")
+planet2=Planet(can, x2, y2, r2, "green", NomPlanet="planet2")
 
 # --- boutons controles ---
 

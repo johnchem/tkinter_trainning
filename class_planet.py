@@ -7,7 +7,7 @@ G = 6.67*10**-11 #N.m2.kg-2
 DENSITE = 1
 UNITE_DISTANCE = 1 #distance unitaire en m
 
-class planet:
+class Planet:
     listePlanet = {}
     def __init__(self, canvas, x, y, r, coul, NomPlanet):
         self.canvas = canvas
@@ -28,7 +28,7 @@ class planet:
             tmpCoords[1]+hb<0 or tmpCoords[3]+hb>200:
             OutOfBorder = True
 
-        for nomPlanet, ObjPlanet in planet.listePlanet.items():
+        for nomPlanet, ObjPlanet in Planet.listePlanet.items():
             x1, y1, r1 = ObjPlanet.coords
             x2, y2, r2 = self.coords
 
