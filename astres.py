@@ -194,7 +194,7 @@ class planet:
         color = self.canvas.itemcget(self.planet, "fill")
         self.canvas.itemconfig(self.planet, outline = color, width=1)
     
-    def change_densité(self, value):
+    def change_densite(self, value):
         "modification de la densité et màj de la masse"
         logging.debug("modification densité {} => {}".format(self.nom, value))
         self.densite = value
@@ -304,7 +304,7 @@ def increase_density(planet, value):
     if not planet == None:
         logging.debug("modification de la densite de {}: {}".format(planet.nom, value))
 
-        planet.change_densité(value)
+        planet.change_densite(value)
         label_update()
     else:
         print("selectionner une planete")
