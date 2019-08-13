@@ -35,8 +35,7 @@ def pion():
 
 
 def pointeur(event):
-    cadre.configure(text="clic détecté en X={}, Y={}".format(
-        event.x, event.y))
+    cadre.configure(text=f"clic détecté en X={event.x}, Y={event.y}")
 
     coord = arange(0, 220, 200 // 10)
 

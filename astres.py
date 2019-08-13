@@ -60,10 +60,7 @@ class Planet:
     liste_planet = {}
 
     def __init__(self, canvas, x, y, r, coul, nom_planet):
-        logging.info("planet init {name} : ({x}, {y}, {r}) {coul}".format(
-            name=nom_planet,
-            x=x, y=y, r=r,
-            coul=coul))
+        logging.info(f"planet init {nom_planet} : ({x}, {y}, {r}) {coul}")
 
         self.canvas = canvas
         self.coords = (x, y, r)
@@ -82,9 +79,7 @@ class Planet:
         max_width = self.canvas.winfo_width()
         max_height = self.canvas.winfo_height()
 
-        logging.info("test collision => nouvelle coord {x}, {y}, {r}".format(
-            x=newx, y=newy, r=newr
-        ))
+        logging.info(f"test collision => nouvelle coord {newx}, {newy}, {newr}")
 
         # variable booléenne
         collision = False
@@ -106,14 +101,14 @@ class Planet:
                 distance = sqrt((newx - x2) ** 2 + (newy - y2) ** 2)
 
                 # log debugage
-                logging.debug("{} ({}, {}) r= {}".format(self.nom, newx, newy, newr))
-                logging.debug("{} ({}, {}) r= {}".format(nom_planet, x2, y2, r2))
-                logging.debug("distance= {:.2f} somme rayon = {}".format(distance, newr + r2))
+                logging.debug("{self.nom} ({newx}, {newy}) r= {newr}")
+                logging.debug("{nom_planet} ({x2}, {y2}) r= {r2}")
+                logging.debug(f"distance= {distance:.2f} somme rayon = {newr + r2}")
 
                 if distance <= (newr + r2):
                     collision = True
 
-        logging.debug("collision resultat : Border = {}, planet = {}".format(out_of_border, collision))
+        logging.debug(f"collision resultat : Border = {out_of_border}, planet = {collision}")
 
         if out_of_border:
             print("mouvement interdit")
@@ -133,7 +128,7 @@ class Planet:
         distance : distance entre les centres de 2 objets
         """
         # log pour debugging
-        logging.info("deplacement horiz = {} verti = {}".format(gd, hb))
+        logging.info(f"deplacement horiz = {gd} verti = {hb}")
 
         # màj des coord et mvt si les tests sont OK
         old_x, old_y, r = self.coords
@@ -153,9 +148,7 @@ class Planet:
         x = (position[0] + position[2]) // 2
         y = (position[1] + position[3]) // 2
 
-        logging.info("centre de masse {} = ({}, {})".format(
-            self.nom, x, y
-        ))
+        logging.info(f"centre de masse {self.nom} = ({x}, {y})")
 
         return x, y
 
@@ -171,26 +164,26 @@ class Planet:
         """ update des propritées de l'objet lors de la modification
         de la taille ou de la densité
         """
-        logging.debug("update {}".format(self.nom))
+        logging.debug(f"update {self.nom}")
 
         self.masse = self._masse()
 
     def select(self):
         """active l'aspect selectionner de l'objet"""
-        logging.debug("{} select".format(self.nom))
+        logging.debug(f"{self.nom} select")
 
         self.canvas.itemconfig(self.planet, outline="black", width=2)
 
     def deselect(self):
         """desactive l'aspect selectionne de l'objet"""
-        logging.debug("{} deselect".format(self.nom))
+        logging.debug(f"{self.nom} deselect")
 
         color = self.canvas.itemcget(self.planet, "fill")
         self.canvas.itemconfig(self.planet, outline=color, width=1)
 
     def change_densite(self, value):
         """modification de la densité et màj de la masse"""
-        logging.debug("modification densité {} => {}".format(self.nom, value))
+        logging.debug(f"modification densité {self.nom} => {value}")
         self.densite = value
         self._update()
 
@@ -200,10 +193,10 @@ class Planet:
         """
         x, y, r = self.coords
         if self._collision(x, y, value):
-            logging.debug("{} collision detecté aug taille annulé".format(self.nom))
+            logging.debug(f"{self.nom} collision detecté aug taille annulé")
             return False
         else:
-            logging.debug("{} aug. taille autorisé r={}".format(self.nom, value))
+            logging.debug(f"{self.nom} aug. taille autorisé r={value}")
 
             self.coords = x, y, value
             self._update()
@@ -287,7 +280,7 @@ def increase_size(planet, value):
     """ handler externe pour la modification de la taille des planetes"""
 
     if planet:
-        logging.debug("modification de la taille de {}: {}".format(planet.nom, value))
+        logging.debug(f"modification de la taille de {planet.nom}: {value}")
 
         # si la modification de la taille echoue => reinitialisation de la position du curseur de taille
         if not planet.size_update(value):
@@ -302,7 +295,7 @@ def increase_density(planet, value):
     """ handler externe pour la modification de la densite des planetes"""
 
     if planet:
-        logging.debug("modification de la densite de {}: {}".format(planet.nom, value))
+        logging.debug(f"modification de la densite de {planet.nom}: {value}")
 
         planet.change_densite(value)
         label_update()
@@ -320,13 +313,13 @@ def display_distance(obj1, obj2):
     """
     distance = get_distance(obj1, obj2)
     if distance // ANNEE_LUMIERE > 1:
-        return "{:.2f} a.l.".format(distance / ANNEE_LUMIERE)
+        return f"{distance / ANNEE_LUMIERE:.2f} a.l."
     elif distance // UNITE_ASTRO > 1:
-        return "{:.2f} ua".format(distance / UNITE_ASTRO)
+        return f"{distance / UNITE_ASTRO:.2f} ua"
     elif distance // 10 ** 3:
-        return "{:.2f} km".format(distance / 10 * 3)
+        return f"{distance / 10 * 3:.2f} km"
     else:
-        return "{:.2f} m".format(distance)
+        return f"{distance:.2f} m"
 
 
 def display_force(obj1, obj2):
@@ -336,11 +329,11 @@ def display_force(obj1, obj2):
     if force // 1 > 1:
         while force // 10 ** i > 1:
             i += 1
-        return "{:.2f}x1e{} N".format(force / 10 ** (i - 1), (i - 1))
+        return f"{force / 10 ** (i - 1):.2f}x1e{(i - 1)} N"
     else:
         while force * 10 ** i < 1:
             i += 1
-        return "{:.2f}x1e-{} N".format(force * 10 ** i, i)
+        return f"{force * 10 ** i:.2f}x1e-{i} N"
 
 
 def display_masse(masse):
@@ -348,7 +341,7 @@ def display_masse(masse):
     i = 0
     while masse // 10 ** i > 1:
         i += 1
-    return "{:.2f}x1e{} kg".format(masse / 10 ** (i - 1), (i - 1))
+    return f"{masse / 10 ** (i - 1):.2f}x1e{(i - 1)} kg"
 
 
 def label_update():
@@ -391,7 +384,7 @@ positionDown = int(root.winfo_screenheight() / 2 - SCREENHEIGHT / 2)
 
 # fenetre principale
 root.title("gravitation")
-root.geometry("+{posR}+{posD}".format(posR=positionRight, posD=positionDown))
+root.geometry(f"+{positionRight}+{positionDown}")
 
 """
 root.geometry("{w}x{h}+{posR}+{posD}".format( \
