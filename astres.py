@@ -176,20 +176,20 @@ class Planet:
         self.masse = self._masse()
 
     def select(self):
-        "active l'aspect selectionner de l'objet"
+        """active l'aspect selectionner de l'objet"""
         logging.debug("{} select".format(self.nom))
 
         self.canvas.itemconfig(self.planet, outline="black", width=2)
 
     def deselect(self):
-        "desactive l'aspect selectionne de l'objet"
+        """desactive l'aspect selectionne de l'objet"""
         logging.debug("{} deselect".format(self.nom))
 
         color = self.canvas.itemcget(self.planet, "fill")
         self.canvas.itemconfig(self.planet, outline=color, width=1)
 
     def change_densite(self, value):
-        "modification de la densité et màj de la masse"
+        """modification de la densité et màj de la masse"""
         logging.debug("modification densité {} => {}".format(self.nom, value))
         self.densite = value
         self._update()
