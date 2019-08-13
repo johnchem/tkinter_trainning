@@ -1,5 +1,4 @@
 import tkinter as tk
-from math import *
 
 """ definition de l'action à effectuer si l'utilisateur actionne
 la touche "enter" alors qu'il edite le champ d'entrée"""

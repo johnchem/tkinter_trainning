@@ -36,7 +36,6 @@ def figure_2():
           [100, 95, 15, 'purple'],
           [100, 145, 30, 'purple']]
 
-    i = 0
     for el in cc:
         cercle(el[0], el[1], el[2], el[3])
 

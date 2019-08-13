@@ -157,7 +157,7 @@ class Planet:
             self.nom, x, y
         ))
 
-        return (x, y)
+        return x, y
 
     def _masse(self):
         """ volumne de la sphere (m3) 
@@ -340,7 +340,7 @@ def display_force(obj1, obj2):
     else:
         while force * 10 ** i < 1:
             i += 1
-        return "{:.2f}x1e-{} N".format(force * 10 ** (i), i)
+        return "{:.2f}x1e-{} N".format(force * 10 ** i, i)
 
 
 def display_masse(masse):
